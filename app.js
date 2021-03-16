@@ -1,18 +1,18 @@
-const os = require('os')
+const http = require('http');
 
-//info on current user
-const user = os.userInfo();
-console.log(user);
+const serve = http.createServer((req, res)=> {
+    if(req.url === '/'){
+        res.end("Welcome to the homepage")
+    }
+    if(req.url === '/about'){
+        res.end("welcome to the about page")
+    }
+    res.end(`
+        <h1>Oops wrong page</h1>
+        <p>return to </p>
+        <a href="/">home</a>
+        
+    `)
+});
 
-//returns the system uptime in seconds
-console.log(`the system has been up for ${os.uptime()} seconds`);
-
-//info on current operation system
-const currentOs={
-    name:os.type(),
-    release: os.release(),
-    totalMem : os.totalmem(),
-    freemem: os.freemem(),
-}
-
-console.log(currentOs);
+serve.listen(5000);
